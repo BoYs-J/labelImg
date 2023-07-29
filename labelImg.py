@@ -105,7 +105,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self._no_selection_slot = False
         self._beginner = True
-        self.screencast = "https://youtu.be/p0nR2YsCY_U"
+        self.screencast = "https://github.com/HumanSignal/labelImg"
 
         # Load predefined classes to the list
         self.load_predefined_classes(default_prefdef_class_file)
@@ -297,6 +297,7 @@ class MainWindow(QMainWindow, WindowMixin):
         help_default = action(get_str('tutorialDefault'), self.show_default_tutorial_dialog, None, 'help', get_str('tutorialDetail'))
         show_info = action(get_str('info'), self.show_info_dialog, None, 'help', get_str('info'))
         show_shortcut = action(get_str('shortcut'), self.show_shortcuts_dialog, None, 'help', get_str('shortcut'))
+        show_translate = action(get_str('translate_zero'), self.show_translate_zero, None, 'cdzero', get_str('translate_zero'))
 
         zoom = QWidgetAction(self)
         zoom.setDefaultWidget(self.zoom_widget)
@@ -670,28 +671,13 @@ class MainWindow(QMainWindow, WindowMixin):
     def advanced(self):
         return not self.beginner()
 
-    def show_tutorial_dialog(self, browser='default', link=None):
+    def show_tutorial_dialog(self, link=None):
         if link is None:
             link = self.screencast
-
-        if browser.lower() == 'default':
-            wb.open(link, new=2)
-        elif browser.lower() == 'chrome' and self.os_name == 'Windows':
-            if shutil.which(browser.lower()):  # 'chrome' not in wb._browsers in windows
-                wb.register('chrome', None, wb.BackgroundBrowser('chrome'))
-            else:
-                chrome_path="D:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-                if os.path.isfile(chrome_path):
-                    wb.register('chrome', None, wb.BackgroundBrowser(chrome_path))
-            try:
-                wb.get('chrome').open(link, new=2)
-            except:
-                wb.open(link, new=2)
-        elif browser.lower() in wb._browsers:
-            wb.get(browser.lower()).open(link, new=2)
+        wb.open(link)
 
     def show_default_tutorial_dialog(self):
-        self.show_tutorial_dialog(browser='default')
+        self.show_tutorial_dialog()
 
     def show_info_dialog(self):
         from libs.__init__ import __version__
@@ -699,7 +685,10 @@ class MainWindow(QMainWindow, WindowMixin):
         QMessageBox.information(self, u'Information', msg)
 
     def show_shortcuts_dialog(self):
-        self.show_tutorial_dialog(browser='default', link='https://github.com/tzutalin/labelImg#Hotkeys')
+        self.show_tutorial_dialog()
+
+    def show_translate_zero(self):
+        self.show_tutorial_dialog(link='https://www.cdzero.cn')
 
     def create_shape(self):
         assert self.beginner()
