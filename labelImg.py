@@ -105,7 +105,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self._no_selection_slot = False
         self._beginner = True
-        self.screencast = "https://github.com/HumanSignal/labelImg"
+        self.screencast = "https://youtu.be/p0nR2YsCY_U"
 
         # Load predefined classes to the list
         self.load_predefined_classes(default_prefdef_class_file)
@@ -685,7 +685,7 @@ class MainWindow(QMainWindow, WindowMixin):
         QMessageBox.information(self, u'Information', msg)
 
     def show_shortcuts_dialog(self):
-        self.show_tutorial_dialog()
+        self.show_tutorial_dialog(link='https://github.com/HumanSignal/labelImg')
 
     def show_translate_zero(self):
         self.show_tutorial_dialog(link='https://www.cdzero.cn')
