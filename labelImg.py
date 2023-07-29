@@ -7,7 +7,7 @@ import platform
 import re
 import sys
 import subprocess
-import webbrowser
+import webbrowser as wb
 
 from functools import partial
 from collections import defaultdict
@@ -99,7 +99,6 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self._noSelectionSlot = False
         self._beginner = True
-        self.screencastViewer = self.getAvailableScreencastViewer()
         self.screencast = "https://youtu.be/p0nR2YsCY_U"
 
         # Load predefined classes to the list
@@ -594,18 +593,14 @@ class MainWindow(QMainWindow, WindowMixin):
     def advanced(self):
         return not self.beginner()
 
-    def getAvailableScreencastViewer(self):
-        osName = platform.system()
-        if osName == 'Windows':
-            return [webbrowser.get().name]
-        elif osName == 'Linux':
-            return ['xdg-open']
-        elif osName == 'Darwin':
-            return ['open']
+    def show_tutorial_dialog(self, link=None):
+        if link is None:
+            link = self.screencast
+        wb.open(link)
 
     ## Callbacks ##
     def showTutorialDialog(self):
-        subprocess.Popen(self.screencastViewer + [self.screencast])
+        self.show_tutorial_dialog()
 
     def showInfoDialog(self):
         from libs.__init__ import __version__
