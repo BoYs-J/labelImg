@@ -685,7 +685,7 @@ class MainWindow(QMainWindow, WindowMixin):
         QMessageBox.information(self, u'Information', msg)
 
     def show_shortcuts_dialog(self):
-        self.show_tutorial_dialog(link='https://github.com/HumanSignal/labelImg')
+        self.show_tutorial_dialog(link='https://github.com/HumanSignal/labelImg#hotkeys')
 
     def show_translate_zero(self):
         self.show_tutorial_dialog(link='https://www.cdzero.cn')
