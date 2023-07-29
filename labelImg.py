@@ -51,7 +51,7 @@ from libs.create_ml_io import JSON_EXT
 from libs.ustr import ustr
 from libs.hashableQListWidgetItem import HashableQListWidgetItem
 
-__appname__ = 'labelImg'
+__appname__ = 'labelImgZ'
 
 
 class WindowMixin(object):
@@ -649,8 +649,8 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def show_info_dialog(self):
         from libs.__init__ import __version__
-        msg = u'Name:{0} \nApp Version:{1} \n{2} '.format(__appname__, __version__, sys.version_info)
-        QMessageBox.information(self, u'Information', msg)
+        msg = u'名称：{0} \nApp版本：{1} \n{2} '.format(__appname__, __version__, sys.version_info)
+        QMessageBox.information(self, u'软件信息', msg)
 
     def show_shortcuts_dialog(self):
         self.show_tutorial_dialog(link='https://github.com/HumanSignal/labelImg#Hotkeys')
