@@ -260,6 +260,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         help = action(getStr('tutorial'), self.showTutorialDialog, None, 'help', getStr('tutorialDetail'))
         showInfo = action(getStr('info'), self.showInfoDialog, None, 'help', getStr('info'))
+        showTranslate = action(getStr('translate_zero'), self.show_translate_zero, None, 'cdzero', getStr('translate_zero'))
 
         zoom = QWidgetAction(self)
         zoom.setDefaultWidget(self.zoomWidget)
@@ -369,7 +370,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         addActions(self.menus.file,
                    (open, opendir, changeSavedir, openAnnotation, self.menus.recentFiles, save, save_format, saveAs, close, resetAll, quit))
-        addActions(self.menus.help, (help, showInfo))
+        addActions(self.menus.help, (help, showInfo, showTranslate))
         addActions(self.menus.view, (
             self.autoSaving,
             self.singleClassMode,
@@ -606,6 +607,9 @@ class MainWindow(QMainWindow, WindowMixin):
         from libs.__init__ import __version__
         msg = u'名称：{0} \nApp版本：{1} \n{2} '.format(__appname__, __version__, sys.version_info)
         QMessageBox.information(self, u'Information', msg)
+
+    def show_translate_zero(self):
+        self.show_tutorial_dialog(link='https://www.cdzero.cn')
 
     def createShape(self):
         assert self.beginner()
