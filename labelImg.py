@@ -99,6 +99,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self._noSelectionSlot = False
         self._beginner = True
+        self.screencastViewer = self.getAvailableScreencastViewer()
         self.screencast = "https://youtu.be/p0nR2YsCY_U"
 
         # Load predefined classes to the list
@@ -251,12 +252,12 @@ class MainWindow(QMainWindow, WindowMixin):
                               'Ctrl+Shift+A', 'expert', getStr('advancedModeDetail'),
                               checkable=True)
 
-        hideAll = action('&Hide\nRectBox', partial(self.togglePolygons, False),
-                         'Ctrl+H', 'hide', getStr('hideAllBoxDetail'),
-                         enabled=False)
-        showAll = action('&Show\nRectBox', partial(self.togglePolygons, True),
-                         'Ctrl+A', 'hide', getStr('showAllBoxDetail'),
-                         enabled=False)
+        hideAll = action(getStr('hideAllBox'), partial(self.togglePolygons, False),
+                        'Ctrl+H', 'hide', getStr('hideAllBoxDetail'),
+                        enabled=False)
+        showAll = action(getStr('showAllBox'), partial(self.togglePolygons, True),
+                        'Ctrl+A', 'hide', getStr('showAllBoxDetail'),
+                        enabled=False)
 
         help = action(getStr('tutorial'), self.showTutorialDialog, None, 'help', getStr('tutorialDetail'))
         showInfo = action(getStr('info'), self.showInfoDialog, None, 'help', getStr('info'))
@@ -316,7 +317,7 @@ class MainWindow(QMainWindow, WindowMixin):
             self.popLabelListMenu)
 
         # Draw squares/rectangles
-        self.drawSquaresOption = QAction('Draw Squares', self)
+        self.drawSquaresOption = QAction(getStr('drawSquares'), self)
         self.drawSquaresOption.setShortcut('Ctrl+Shift+R')
         self.drawSquaresOption.setCheckable(True)
         self.drawSquaresOption.setChecked(settings.get(SETTING_DRAW_SQUARE, False))
@@ -343,11 +344,11 @@ class MainWindow(QMainWindow, WindowMixin):
                               onShapesPresent=(saveAs, hideAll, showAll))
 
         self.menus = struct(
-            file=self.menu('&File'),
-            edit=self.menu('&Edit'),
-            view=self.menu('&View'),
-            help=self.menu('&Help'),
-            recentFiles=QMenu('Open &Recent'),
+            file=self.menu(getStr('menu_file')),
+            edit=self.menu(getStr('menu_edit')),
+            view=self.menu(getStr('menu_view')),
+            help=self.menu(getStr('menu_help')),
+            recentFiles=QMenu(getStr('menu_openRecent')),
             labelList=labelMenu)
 
         # Auto saving : Enable auto saving if pressing next
@@ -593,12 +594,22 @@ class MainWindow(QMainWindow, WindowMixin):
     def advanced(self):
         return not self.beginner()
 
+    def getAvailableScreencastViewer(self):
+        osName = platform.system()
+        if osName == 'Windows':
+            return [webbrowser.get().name]
+        elif osName == 'Linux':
+            return ['xdg-open']
+        elif osName == 'Darwin':
+            return ['open']
+
     ## Callbacks ##
     def showTutorialDialog(self):
-        wb.open(self.screencast)
+        subprocess.Popen(self.screencastViewer + [self.screencast])
 
     def showInfoDialog(self):
-        msg = u'Name:{0} \nApp Version:{1} \n{2} '.format(__appname__, __version__, sys.version_info)
+        from libs.__init__ import __version__
+        msg = u'名称：{0} \nApp版本：{1} \n{2} '.format(__appname__, __version__, sys.version_info)
         QMessageBox.information(self, u'Information', msg)
 
     def createShape(self):
