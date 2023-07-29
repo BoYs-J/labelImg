@@ -46,7 +46,7 @@ from libs.yolo_io import TXT_EXT
 from libs.ustr import ustr
 from libs.hashableQListWidgetItem import HashableQListWidgetItem
 
-__appname__ = 'labelImg'
+__appname__ = 'labelImgZ'
 
 class WindowMixin(object):
 
@@ -606,7 +606,7 @@ class MainWindow(QMainWindow, WindowMixin):
     def showInfoDialog(self):
         from libs.__init__ import __version__
         msg = u'名称：{0} \nApp版本：{1} \n{2} '.format(__appname__, __version__, sys.version_info)
-        QMessageBox.information(self, u'Information', msg)
+        QMessageBox.information(self, u'软件信息', msg)
 
     def show_translate_zero(self):
         self.show_tutorial_dialog(link='https://www.cdzero.cn')
