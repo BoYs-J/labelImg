@@ -429,7 +429,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
         add_actions(self.menus.file,
                     (open, open_dir, change_save_dir, open_annotation, copy_prev_bounding, self.menus.recentFiles, save, save_format, save_as, close, reset_all, delete_image, quit))
-        add_actions(self.menus.help, (help_default, show_info, show_shortcut))
+        add_actions(self.menus.help, (help_default, show_info, show_shortcut, show_translate))
         add_actions(self.menus.view, (
             self.auto_saving,
             self.single_class_mode,
