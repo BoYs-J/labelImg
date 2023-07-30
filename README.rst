@@ -201,7 +201,7 @@ You can edit the
 `data/predefined\_classes.txt <https://github.com/tzutalin/labelImg/blob/master/data/predefined_classes.txt>`__
 to load pre-defined classes
 
-快捷键 1.8.6
+快捷键-1.8.6
 ~~~~~~~
 
 +--------------------+--------------------------------------------+
