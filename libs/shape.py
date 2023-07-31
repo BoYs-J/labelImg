@@ -126,9 +126,10 @@ class Shape(object):
                     painter.setFont(font)
                     if self.label is None:
                         self.label = ""
-                    min_y -= 3
                     if min_y < min_y_label:
                         min_y += min_y_label + 3
+                    min_x += 3
+                    min_y -= 3
                     painter.drawText(min_x, min_y, self.label)
 
             if self.fill:
