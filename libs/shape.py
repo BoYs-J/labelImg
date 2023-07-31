@@ -114,8 +114,8 @@ class Shape(object):
             # Draw text at the top-left
             if self.paint_label:
                 min_x = sys.maxsize
-                min_y = sys.maxsize + 3
-                min_y_label = int(1.25 * self.label_font_size)
+                min_y = sys.maxsize
+                min_y_label = int(1.25 * self.label_font_size + 3)
                 for point in self.points:
                     min_x = min(min_x, point.x())
                     min_y = min(min_y, point.y())
