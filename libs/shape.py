@@ -115,10 +115,10 @@ class Shape(object):
             if self.paint_label:
                 min_x = sys.maxsize
                 min_y = sys.maxsize
-                min_y_label = int(1.25 * self.label_font_size + 3)
+                min_y_label = int(1.25 * self.label_font_size + 5)
                 for point in self.points:
                     min_x = min(min_x, point.x())
-                    min_y = min(min_y, point.y())
+                    min_y = min(min_y, point.y()) - 5
                 if min_x != sys.maxsize and min_y != sys.maxsize:
                     font = QFont()
                     font.setPointSize(self.label_font_size)
