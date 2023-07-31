@@ -36,7 +36,7 @@ class Shape(object):
     point_type = P_ROUND
     point_size = 8
     scale = 1.0
-    label_font_size = 8
+    label_font_size = 14
 
     def __init__(self, label=None, line_color=None, difficult=False, paint_label=False):
         self.label = label
@@ -115,7 +115,7 @@ class Shape(object):
             if self.paint_label:
                 min_x = sys.maxsize
                 min_y = sys.maxsize
-                min_y_label = int(1.25 * self.label_font_size)
+                min_y_label = int(1.25 * self.label_font_size) + 3
                 for point in self.points:
                     min_x = min(min_x, point.x())
                     min_y = min(min_y, point.y())
@@ -126,9 +126,9 @@ class Shape(object):
                     painter.setFont(font)
                     if self.label is None:
                         self.label = ""
-                    min_y -= 5
+                    min_y -= 3
                     if min_y < min_y_label:
-                        min_y += min_y_label + 8
+                        min_y += min_y_label + 3
                     painter.drawText(min_x, min_y, self.label)
 
             if self.fill:
